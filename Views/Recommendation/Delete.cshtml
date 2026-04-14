@@ -1,0 +1,46 @@
+@model PersonRecommendationApp.Models.Entities.Recommendation
+
+@{
+    ViewData["Title"] = "Delete";
+    Person? person = (Person?)ViewData["Person"];
+    if (person == null)
+    {
+        return;
+    }
+}
+
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Recommendation for @person.FirstName @person.LastName</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Narrative)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Narrative)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" name="personId" id="personId" value="@person.Id" />
+        <input type="hidden" name="recommendationId" id="recommendationId" 
+            value="@Model.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>

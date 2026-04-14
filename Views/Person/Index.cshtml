@@ -34,33 +34,34 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var person in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => person.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => person.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => person.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => person.MiddleName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => person.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => person.DateOfBirth)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
-                <a asp-action="Create" asp-controller="Recommendation" asp-route-id="@person.Id">Make Recommendation</a>
-            </td>
-        </tr>
-}
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => person.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => person.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => person.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => person.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => person.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => person.DateOfBirth)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                    <a asp-action="Details" asp-controller="Person" asp-route-id="@person.Id">Details</a> |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ }) |
+                    <a asp-action="Create" asp-controller="Recommendation" asp-route-id="@person.Id">Make Recommendation</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

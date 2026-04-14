@@ -18,11 +18,24 @@ public class DbPersonRepository : IPersonRepository
         var person = await ReadAsync(personId);
         if(person != null)
         {
-            person.Recommendations.Add(recommendation);
+            recommendation.Id = 0;
             recommendation.Person = person;
+            _db.Recommendations.Add(recommendation);
             await _db.SaveChangesAsync();
         }
         return recommendation;
+    }
+
+    public async Task DeleteRecommendationAsync(int recommendationId)
+    {
+        Recommendation? recToDelete = 
+            await _db.Recommendations.FirstOrDefaultAsync(
+                r => r.Id == recommendationId);
+        if(recToDelete != null)
+        {
+            _db.Recommendations.Remove(recToDelete);
+            await _db.SaveChangesAsync();
+        }
     }
 
     public async Task<ICollection<Person>> ReadAllAsync()
@@ -37,5 +50,18 @@ public class DbPersonRepository : IPersonRepository
         return await _db.People
             .Include(p => p.Recommendations)
             .FirstOrDefaultAsync(p => p.Id == id);
+    }
+
+    public async Task UpdateRecommendationAsync(Recommendation recommendation)
+    {
+        Recommendation? recToUpdate = 
+            await _db.Recommendations.FirstOrDefaultAsync(
+                r => r.Id == recommendation.Id);
+        if(recToUpdate != null)
+        {
+            recToUpdate.Rating = recommendation.Rating;
+            recToUpdate.Narrative = recommendation.Narrative;
+            await _db.SaveChangesAsync();
+        }
     }
 }
